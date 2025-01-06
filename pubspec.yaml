@@ -59,8 +59,38 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/videos/
-    - assets/audios/
-    - assets/rive_animations/
-    - assets/pdfs/
-    - assets/jsons/
+  fonts:
+    - family: MohrRoundedAlt
+      fonts:
+        - asset: assets/fonts/MohrRoundedAlt-Regular.ttf
+        - asset: assets/fonts/MohrRoundedAlt-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/MohrRoundedAlt-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/MohrRoundedAlt-Light.ttf
+          weight: 300
+        - asset: assets/fonts/MohrRoundedAlt-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/MohrRoundedAlt-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/MohrRoundedAlt-Bold.ttf
+          weight: 700
+
+    - family: MohrRounded
+      fonts:
+        - asset: assets/fonts/MohrRounded-Regular.ttf
+        - asset: assets/fonts/MohrRounded-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/MohrRounded-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/MohrRounded-Light.ttf
+          weight: 300
+        - asset: assets/fonts/MohrRounded-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/MohrRounded-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/MohrRounded-Bold.ttf
+          weight: 700
+        
+        
+
