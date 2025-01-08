@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kairos_fronted/LoginResponsive/loginScreen.dart';
-import 'package:kairos_fronted/HeadquartersResponsive/HeadquartersScreen.dart';
+import 'package:kairos_fronted/DashboardResponsive/dashboardScreen.dart';
+import 'package:kairos_fronted/DashboardResponsive/utils.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,9 +11,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HeadquartersScreen(),
+      theme: ThemeData(
+        primaryColor: MyAppColor.primaryPinkColor,
+      ),
+      home: const DashboardResponsive(),
     );
   }
 }
