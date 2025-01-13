@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: MyAppColor.primaryPinkColor,
       ),
-      home: //const DashboardResponsive(),
+      home: const DashboardResponsive(),
       //const LoginScreen(),
-      const HeadquartersScreen()
+      //const HeadquartersScreen()
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kairos_fronted/DashboardResponsive/components/category_card.dart';
 import 'package:kairos_fronted/DashboardResponsive/components/custom_drawer.dart';
 import 'package:kairos_fronted/DashboardResponsive/utils.dart';
 
@@ -15,53 +14,6 @@ class _DashboardResponsiveState extends State<DashboardResponsive> {
   final String userRole =
       "Administrador"; // Cambiar a "Empleado" para probar con ese rol.
 
-  // Método para obtener los CategoryCards en función del rol de usuario
-  List<Widget> _getCategoryCards() {
-    if (userRole == "Empleado") {
-      return [
-        const CategoryCard(
-          icon: Icons.local_drink,
-          color: MyAppColor.primaryOrangeColor,
-          title: "Cremoladas",
-          subtitle: "Inventario y Gestión de tus cremoladas",
-        ),
-        const CategoryCard(
-          icon: Icons.receipt,
-          color: MyAppColor.primarygreenColor,
-          title: "Ventas",
-          subtitle: "Administra tus ventas",
-        ),
-      ];
-    } else {
-      return [
-        const CategoryCard(
-          icon: Icons.person,
-          color: MyAppColor.primaryFucsiaColor,
-          title: "Usuarios",
-          subtitle: "Administra tus Usuarios",
-        ),
-        const CategoryCard(
-          icon: Icons.location_city,
-          color: MyAppColor.primaryTurquezaColor,
-          title: "Sedes",
-          subtitle: "Administra tus Sedes",
-        ),
-        const CategoryCard(
-          icon: Icons.local_drink,
-          color: MyAppColor.primaryOrangeColor,
-          title: "Cremoladas",
-          subtitle: "Inventario y Gestión de tus cremoladas",
-        ),
-        const CategoryCard(
-          icon: Icons.receipt,
-          color: MyAppColor.primarygreenColor,
-          title: "Ventas",
-          subtitle: "Administra tus ventas",
-        ),
-      ];
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -76,7 +28,7 @@ class _DashboardResponsiveState extends State<DashboardResponsive> {
                         EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
+                      //mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
                           "Sidecom - Kairos",
@@ -162,20 +114,424 @@ class _DashboardResponsiveState extends State<DashboardResponsive> {
                             padding: const EdgeInsets.all(25.0),
                             child: LayoutBuilder(
                               builder: (context, innerConstraints) {
-                                double maxExtent;
-
-                                if (innerConstraints.maxWidth > 1200) {
-                                  maxExtent = 250; // Para pantallas grandes
-                                } else if (innerConstraints.maxWidth > 600) {
-                                  maxExtent = 250; // Para pantallas medianas
-                                } else {
-                                  maxExtent = 300; // Para pantallas pequeñas
-                                }
-
                                 List<Widget> contentWidgets = [];
 
                                 if (_selectedMenuIndex == 0) {
-                                  contentWidgets.addAll(_getCategoryCards());
+                                  contentWidgets = [
+                                    Container(
+                                        padding: const EdgeInsets.all(16.0),
+                                        width: innerConstraints.maxWidth,
+                                        child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                "Resumen General",
+                                                style: TextStyle(
+                                                  fontSize: 24,
+                                                  fontFamily: 'MohrRoundedAlt',
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 30.0),
+                                              // Tarjetas de Resumen
+                                              LayoutBuilder(
+                                                builder:
+                                                    (context, constraints) {
+                                                  return Wrap(
+                                                    spacing: 16.0,
+                                                    runSpacing: 16.0,
+                                                    children: [
+                                                      _buildSummaryCard(
+                                                          "Ventas del Día",
+                                                          "S/ 500.00"),
+                                                      _buildSummaryCard(
+                                                          "Ventas Semanales",
+                                                          "S/ 1,000.00"),
+                                                      _buildSummaryCard(
+                                                          "Ventas Mensuales",
+                                                          "S/ 5,000.00"),
+                                                    ],
+                                                  );
+                                                },
+                                              ),
+                                              const SizedBox(height: 30.0),
+                                              LayoutBuilder(
+                                                builder:
+                                                    (context, constraints) {
+                                                  bool isWideEnough = constraints
+                                                          .maxWidth >
+                                                      600; // Ajusta el valor según el tamaño necesario para estar en una fila
+
+                                                  return isWideEnough
+                                                      ? Row(
+                                                        
+                                                          children: [
+                                                            Expanded(
+                                                              child:
+                                                                  _buildInfoCard(
+                                                                title:
+                                                                    "Productos más Vendidos",
+                                                                content:
+                                                                    const Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Row(
+                                                                      children: [
+                                                                        Expanded(
+                                                                          flex:
+                                                                              2,
+                                                                          child:
+                                                                              Text(
+                                                                            "Productos",
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 18,
+                                                                              fontFamily: 'MohrRoundedAlt',
+                                                                              fontWeight: FontWeight.w600,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Expanded(
+                                                                          flex:
+                                                                              1,
+                                                                          child:
+                                                                              Text(
+                                                                            "Unidades",
+                                                                            textAlign:
+                                                                                TextAlign.right,
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 18,
+                                                                              fontFamily: 'MohrRoundedAlt',
+                                                                              fontWeight: FontWeight.w600,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    SizedBox(
+                                                                        height:
+                                                                            4.0),
+                                                                    Row(
+                                                                      children: [
+                                                                        Expanded(
+                                                                          flex:
+                                                                              2,
+                                                                          child:
+                                                                              Text(
+                                                                            "Cremolada de Fresa",
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 16,
+                                                                              fontFamily: 'MohrRoundedAlt',
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Expanded(
+                                                                          flex:
+                                                                              1,
+                                                                          child:
+                                                                              Text(
+                                                                            "10",
+                                                                            textAlign:
+                                                                                TextAlign.right,
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 16,
+                                                                              fontFamily: 'MohrRoundedAlt',
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            const SizedBox(width: 20),
+                                                            Expanded(
+                                                              child:
+                                                                  _buildInfoCard(
+                                                                title:
+                                                                    "Sedes Top",
+                                                                content:
+                                                                    const Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Row(
+                                                                      children: [
+                                                                        Expanded(
+                                                                          flex:
+                                                                              2,
+                                                                          child:
+                                                                              Text(
+                                                                            "Sedes",
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 18,
+                                                                              fontFamily: 'MohrRoundedAlt',
+                                                                              fontWeight: FontWeight.w600,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Expanded(
+                                                                          flex:
+                                                                              1,
+                                                                          child:
+                                                                              Text(
+                                                                            "Total S/.",
+                                                                            textAlign:
+                                                                                TextAlign.right,
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 18,
+                                                                              fontFamily: 'MohrRoundedAlt',
+                                                                              fontWeight: FontWeight.w600,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    SizedBox(
+                                                                        height:
+                                                                            4.0),
+                                                                    Row(
+                                                                      children: [
+                                                                        Expanded(
+                                                                          flex:
+                                                                              2,
+                                                                          child:
+                                                                              Text(
+                                                                            "Sidecom - Kairos:",
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 18,
+                                                                              fontFamily: 'MohrRoundedAlt',
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Expanded(
+                                                                          flex:
+                                                                              1,
+                                                                          child:
+                                                                              Text(
+                                                                            "20.00",
+                                                                            textAlign:
+                                                                                TextAlign.right,
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 18,
+                                                                              fontFamily: 'MohrRoundedAlt',
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        )
+                                                      : Wrap(
+                                                          spacing: 16.0,
+                                                          runSpacing: 16.0,
+                                                          alignment:
+                                                              WrapAlignment
+                                                                  .start,
+                                                          children: [
+                                                            _buildInfoCard(
+                                                              title:
+                                                                  "Productos más Vendidos",
+                                                              content:
+                                                                  const Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Row(
+                                                                    children: [
+                                                                      Expanded(
+                                                                        flex: 2,
+                                                                        child:
+                                                                            Text(
+                                                                          "Productos",
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontSize:
+                                                                                18,
+                                                                            fontFamily:
+                                                                                'MohrRoundedAlt',
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      Expanded(
+                                                                        flex: 1,
+                                                                        child:
+                                                                            Text(
+                                                                          "Unidades",
+                                                                          textAlign:
+                                                                              TextAlign.right,
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontSize:
+                                                                                18,
+                                                                            fontFamily:
+                                                                                'MohrRoundedAlt',
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  SizedBox(
+                                                                      height:
+                                                                          4.0),
+                                                                  Row(
+                                                                    children: [
+                                                                      Expanded(
+                                                                        flex: 2,
+                                                                        child:
+                                                                            Text(
+                                                                          "Cremolada de Fresa",
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontSize:
+                                                                                16,
+                                                                            fontFamily:
+                                                                                'MohrRoundedAlt',
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      Expanded(
+                                                                        flex: 1,
+                                                                        child:
+                                                                            Text(
+                                                                          "10",
+                                                                          textAlign:
+                                                                              TextAlign.right,
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontSize:
+                                                                                16,
+                                                                            fontFamily:
+                                                                                'MohrRoundedAlt',
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            _buildInfoCard(
+                                                              title:
+                                                                  "Sedes Top",
+                                                              content:
+                                                                  const Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Row(
+                                                                    children: [
+                                                                      Expanded(
+                                                                        flex: 2,
+                                                                        child:
+                                                                            Text(
+                                                                          "Sedes",
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontSize:
+                                                                                18,
+                                                                            fontFamily:
+                                                                                'MohrRoundedAlt',
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      Expanded(
+                                                                        flex: 1,
+                                                                        child:
+                                                                            Text(
+                                                                          "Total S/.",
+                                                                          textAlign:
+                                                                              TextAlign.right,
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontSize:
+                                                                                18,
+                                                                            fontFamily:
+                                                                                'MohrRoundedAlt',
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  SizedBox(
+                                                                      height:
+                                                                          4.0),
+                                                                  Row(
+                                                                    children: [
+                                                                      Expanded(
+                                                                        flex: 2,
+                                                                        child:
+                                                                            Text(
+                                                                          "Sidecom - Kairos:",
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontSize:
+                                                                                18,
+                                                                            fontFamily:
+                                                                                'MohrRoundedAlt',
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      Expanded(
+                                                                        flex: 1,
+                                                                        child:
+                                                                            Text(
+                                                                          "20.00",
+                                                                          textAlign:
+                                                                              TextAlign.right,
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontSize:
+                                                                                18,
+                                                                            fontFamily:
+                                                                                'MohrRoundedAlt',
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        );
+                                                },
+                                              ),
+
+                                              const SizedBox(height: 30.0),
+
+                                              // Notificaciones
+                                              _buildNotificationCard(
+                                                "\u26A0 Stock bajo de Cremolada de Fresa en la Sede Sidecom",
+                                              ),
+                                            ]))
+                                  ];
                                 } else {
                                   contentWidgets = [
                                     Text(
@@ -185,11 +541,11 @@ class _DashboardResponsiveState extends State<DashboardResponsive> {
                                 }
 
                                 return GridView.extent(
-                                  maxCrossAxisExtent: maxExtent,
-                                  crossAxisSpacing: 8,
-                                  mainAxisSpacing: 8,
-                                  children: contentWidgets,
-                                );
+                                    maxCrossAxisExtent: constraints.maxWidth,
+                                    crossAxisSpacing: 8,
+                                    mainAxisSpacing: 8,
+                                    childAspectRatio: 1.5,
+                                    children: contentWidgets);
                               },
                             ),
                           ),
@@ -215,4 +571,102 @@ class _DashboardResponsiveState extends State<DashboardResponsive> {
       },
     );
   }
+}
+
+Widget _buildSummaryCard(String title, String value) {
+  return Container(
+    padding: const EdgeInsets.all(25.0),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.2),
+          blurRadius: 5,
+          offset: const Offset(0, 3),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+            fontFamily: 'MohrRoundedAlt',
+          ),
+        ),
+        const SizedBox(height: 8.0),
+        Text(
+          value,
+          style: const TextStyle(
+            fontSize: 24,
+            fontFamily: 'MohrRoundedAlt',
+            fontWeight: FontWeight.bold,
+            color: MyAppColor.primaryPinkColor,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildInfoCard({required String title, required Widget content}) {
+  return Container(
+    padding: const EdgeInsets.all(25.0),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.2),
+          blurRadius: 5,
+          offset: const Offset(0, 3),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'MohrRoundedAlt'),
+        ),
+        const SizedBox(height: 8.0),
+        content,
+      ],
+    ),
+  );
+}
+
+Widget _buildNotificationCard(String message) {
+  return Container(
+    width: double.infinity,
+    padding: const EdgeInsets.all(16.0),
+    decoration: BoxDecoration(
+      color: Colors.red.withOpacity(0.1),
+      borderRadius: BorderRadius.circular(10),
+    ),
+    child: Row(
+      children: [
+        //const Icon(Icons.warning, color: Colors.red),
+        const SizedBox(width: 8.0),
+        Expanded(
+          child: Text(
+            message,
+            style: const TextStyle(
+                color: Colors.red,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'MohrRoundedAlt'),
+          ),
+        ),
+      ],
+    ),
+  );
 }
